@@ -13,7 +13,7 @@ const config = require('./config/config')
 
 
 app.use(bodyParser.urlencoded({ extended: false }))
-app.use(morgan(":req[x-forwarded-for] :method :url - :response-time ms [:status]"))
+app.use(morgan(":remote-addr :method :url - :response-time ms [:status]"))
 app.use('/login', loginRoute)
 app.use('/home', homeRoute)
 app.use('/user', userRoute)
