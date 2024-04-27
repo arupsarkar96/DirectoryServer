@@ -1,0 +1,38 @@
+version: '3.8'
+ 
+services:
+  db:
+    image: mysql:latest
+    container_name: db
+    environment:
+      MYSQL_ROOT_PASSWORD: Aspire_5742
+      MYSQL_DATABASE: directory
+      MYSQL_USER: directory
+      MYSQL_PASSWORD: z0cI4mWpBUswZcV
+    ports:
+      - "3306:3306"
+    volumes:
+      - dbdata:/var/lib/mysql
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: pma
+    environment:
+      PMA_HOST: db
+      PMA_PORT: 3306
+      PMA_ARBITRARY: 1
+    restart: always
+    ports:
+      - 8081:80
+  app:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    image: app
+    container_name: app # Corrected typo
+    restart: always
+    ports:
+      - 8080:80
+    environment:
+      MYSQL: mysql://directory:z0cI4mWpBUswZcV@db/directory
+volumes:
+  dbdata:
