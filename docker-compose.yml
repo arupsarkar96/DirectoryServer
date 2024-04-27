@@ -35,7 +35,7 @@ services:
     container_name: app # Corrected typo
     restart: always
     ports:
-      - 8080:80
+      - 8080:8080
     environment:
       MYSQL: mysql://directory:z0cI4mWpBUswZcV@db/directory
     networks:
