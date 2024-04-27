@@ -27,7 +27,7 @@ const getUserSearchService = async (identifier) => {
     const connection = await getConnection()
 
     const sql = 'SELECT Users.*, Clubs.club_name as club FROM `Users` LEFT JOIN `Clubs` ON `Users`.`club_id` = `Clubs`.`club_id` WHERE `name` LIKE ? ORDER BY `name` ASC LIMIT 20'
-    const value = [`${identifier}%`]
+    const value = [`%${identifier}%`]
 
     const [result, fields] = await connection.query(sql, value)
     connection.release()
