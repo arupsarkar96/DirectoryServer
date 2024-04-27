@@ -9,6 +9,7 @@ const listRoute = require('./routes/listRoute')
 const clubRoute = require('./routes/clubRoute')
 const pageRoute = require('./routes/pageRoute')
 const searchRoute = require('./routes/searchRoute')
+const config = require('./config/config')
 
 
 app.use(bodyParser.urlencoded({ extended: false }))
@@ -22,6 +23,6 @@ app.use('/page', pageRoute)
 app.use('/search', searchRoute)
 
 
-app.listen(80, '0.0.0.0', () => {
-    console.log(`🚀 HTTP`, 80)
+app.listen(config.port, '0.0.0.0', () => {
+    console.log(`🚀 HTTP`, config.port)
 })
