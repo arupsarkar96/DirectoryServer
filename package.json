@@ -15,7 +15,10 @@
     "firebase": "^10.11.0",
     "firebase-admin": "^12.1.0",
     "jsonwebtoken": "^9.0.2",
+    "minio": "^8.0.0",
+    "multer": "^1.4.5-lts.1",
     "mysql2": "^3.9.7",
+    "node-cache": "^5.1.2",
     "prom-client": "^15.1.2",
     "winston": "^3.13.0",
     "winston-loki": "^6.1.2"

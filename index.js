@@ -10,6 +10,7 @@ const clubRoute = require('./routes/clubRoute')
 const pageRoute = require('./routes/pageRoute')
 const searchRoute = require('./routes/searchRoute')
 const zoneRoute = require('./routes/zoneRoute')
+const fileRoute = require('./routes/fileRoute')
 const config = require('./config/config')
 const { LogRequest } = require('./middleware/log')
 
@@ -25,7 +26,7 @@ app.use('/club', clubRoute)
 app.use('/page', pageRoute)
 app.use('/search', searchRoute)
 app.use('/zone', zoneRoute)
-
+app.use('/file', fileRoute)
 
 app.get('/metrics', async (req, res) => {
     res.setHeader('Content-Type', client.register.contentType)

@@ -43,5 +43,13 @@ const getUserSearchService = async (identifier) => {
 
 }
 
+const updateUserImageService = async (image, phone) => {
+    const connection = await getConnection()
+    const sql = 'UPDATE Users SET image = ? WHERE phone = ?'
+    const value = [image, phone]
+    const [result, fields] = await connection.query(sql, value)
+    connection.release()
+    return result
+}
 
-module.exports = { getUserByPhone, getUserListService, getUserSearchService }
+module.exports = { getUserByPhone, getUserListService, getUserSearchService, updateUserImageService }
