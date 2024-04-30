@@ -56,7 +56,7 @@ app.get('/:key', async (req, res) => {
         const imageData = Buffer.concat(chunks).toString('base64')
         const finalImage = Buffer.from(imageData, 'base64')
         cache.set(id, finalImage)
-        res.setHeader('Content-Type', 'application/octet-stream')
+        res.setHeader('Content-Type', 'image/jpeg')
             .status(200)
             .send(finalImage)
     })
