@@ -14,19 +14,27 @@ const getUserByPhone = async (phone) => {
 const getUserListService = async (identifier, limit, offset) => {
     const connection = await getConnection()
 
-    const sql = 'SELECT COUNT(*) AS count FROM `Users` WHERE `role` = ?; SELECT `Users`.*, `Clubs`.`club_name` AS club FROM `Users` LEFT JOIN `Clubs` ON `Users`.`club_id` = `Clubs`.`club_id` WHERE `Users`.`role` = ? ORDER BY `Users`.`uid` ASC LIMIT ? OFFSET ?;'
-    const value = [identifier, identifier, limit, offset]
+    if (identifier == 'MEMBER' || identifier == 'PST' || identifier == 'CABINET' || identifier == 'COMMITTEE') {
+        const sql = 'SELECT COUNT(*) AS count FROM `Users` WHERE `role` = ?; SELECT `Users`.*, `Clubs`.`club_name` AS club FROM `Users` LEFT JOIN `Clubs` ON `Users`.`club_id` = `Clubs`.`cid` WHERE `Users`.`role` = ? ORDER BY `Users`.`uid` ASC LIMIT ? OFFSET ?;'
+        const value = [identifier, identifier, limit, offset]
 
-    const [result, fields] = await connection.query(sql, value)
-    connection.release()
-    return result
+        const [result, fields] = await connection.query(sql, value)
+        connection.release()
+        return result
+    } else {
+        const sql = 'SELECT COUNT(*) AS count FROM `Users` WHERE `club_id` = ?; SELECT `Users`.*, `Clubs`.`club_name` AS club FROM `Users` LEFT JOIN `Clubs` ON `Users`.`club_id` = `Clubs`.`cid` WHERE `Users`.`club_id` = ? ORDER BY CASE WHEN `Users`.`designation` = "PRESIDENT" THEN 1 WHEN `Users`.`designation` = "SECRETARY" THEN 2 WHEN `Users`.`designation` = "TREASURER" THEN 3 WHEN `Users`.`role` = "CABINET" THEN 4 ELSE 5 END, CASE WHEN `Users`.`role` = "MEMBER" THEN Users.name END ASC LIMIT ? OFFSET ?;'
+        const value = [identifier, identifier, limit, offset]
 
+        const [result, fields] = await connection.query(sql, value)
+        connection.release()
+        return result
+    }
 }
 
 const getUserSearchService = async (identifier) => {
     const connection = await getConnection()
 
-    const sql = 'SELECT Users.*, Clubs.club_name as club FROM `Users` LEFT JOIN `Clubs` ON `Users`.`club_id` = `Clubs`.`club_id` WHERE `name` LIKE ? ORDER BY `name` ASC LIMIT 20'
+    const sql = 'SELECT Users.*, Clubs.club_name as club FROM `Users` LEFT JOIN `Clubs` ON `Users`.`club_id` = `Clubs`.`cid` WHERE `name` LIKE ? ORDER BY `name` ASC LIMIT 20'
     const value = [`%${identifier}%`]
 
     const [result, fields] = await connection.query(sql, value)

@@ -4,7 +4,7 @@ const { getUserSearch } = require('../controller/userController')
 const app = express.Router()
 
 
-app.get('/:identifier', async (req, res) => {
+app.get('/:identifier', UserAuthorize, async (req, res) => {
     const { identifier } = req.params
 
     const data = await getUserSearch(identifier)

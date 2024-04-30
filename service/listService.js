@@ -16,7 +16,7 @@ const getListService = async (identifier, limit, offset) => {
 const getClubListService = async (identifier, limit, offset) => {
     const connection = await getConnection()
 
-    const sql = 'SELECT COUNT(*) AS count FROM `Clubs` WHERE `type` = ?; SELECT * FROM `Clubs` WHERE `type` = ? ORDER BY `club_id` ASC LIMIT ? OFFSET ?;'
+    const sql = 'SELECT COUNT(*) AS count FROM `Clubs` WHERE `zone_id` = ?; SELECT * FROM `Clubs` WHERE `zone_id` = ? ORDER BY `cid` ASC LIMIT ? OFFSET ?;'
     const value = [identifier, identifier, limit, offset]
 
     const [result, fields] = await connection.query(sql, value)

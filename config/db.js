@@ -3,7 +3,6 @@ const util = require('util');
 const config = require('./config');
 
 const pool = mysql.createPool({
-
     multipleStatements: true,
     uri: config.db
 })
