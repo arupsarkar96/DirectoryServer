@@ -28,8 +28,15 @@ const app = express.Router()
 
 
 
-app.get('/:key', UserAuthorize, async (req, res) => {
+app.get('/:key', async (req, res) => {
     let id = req.params.key
+
+
+    const cachedImage = cache.get(id)
+
+    if (cachedImage) {
+        return res.set('Content-Type', 'image/jpeg').send(cachedImage)
+    }
 
     const stat = await minioClient.statObject('avatars', id)
     if (stat.err) {
@@ -48,6 +55,7 @@ app.get('/:key', UserAuthorize, async (req, res) => {
     dataStream.on('end', () => {
         const imageData = Buffer.concat(chunks).toString('base64')
         const finalImage = Buffer.from(imageData, 'base64')
+        cache.set(id, finalImage)
         res.setHeader('Content-Type', 'application/octet-stream')
             .status(200)
             .send(finalImage)
