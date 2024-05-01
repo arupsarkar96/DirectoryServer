@@ -78,7 +78,7 @@ app.post('/', UserAuthorize, upload.single("file"), async (req, res) => {
     if (!file) {
         return res.status(400).send('No file uploaded.')
     }
-    const fileName = uuid()
+    const fileName = uuid() + ".jpeg"
 
     minioClient.putObject('avatars', fileName, file.buffer, (err, etag) => {
         if (err) {
