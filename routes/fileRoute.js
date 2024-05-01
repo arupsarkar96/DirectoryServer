@@ -89,7 +89,7 @@ app.post('/', UserAuthorize, upload.single("file"), async (req, res) => {
         }
         const uploadedImageUrl = "https://directory.messant.in/file/" + fileName
 
-        res.send(uploadedImageUrl)
+        res.send({ file: uploadedImageUrl })
 
         updateUserImageService(uploadedImageUrl, req.headers['x-auth-user'])
         // Release from Memory Storage
