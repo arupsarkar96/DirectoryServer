@@ -13,9 +13,9 @@ const getUserList = async (identifier, page) => {
     }
 }
 
-const getUserSearch = async (identifier) => {
+const getUserSearch = async (identifier, filter) => {
 
-    return await getUserSearchService(identifier)
+    return await getUserSearchService(identifier, filter)
 }
 
 

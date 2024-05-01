@@ -31,16 +31,28 @@ const getUserListService = async (identifier, limit, offset) => {
     }
 }
 
-const getUserSearchService = async (identifier) => {
-    const connection = await getConnection()
+const getUserSearchService = async (identifier, filter) => {
 
-    const sql = 'SELECT Users.*, Clubs.club_name as club FROM `Users` LEFT JOIN `Clubs` ON `Users`.`club_id` = `Clubs`.`cid` WHERE `name` LIKE ? ORDER BY `name` ASC LIMIT 20'
-    const value = [`%${identifier}%`]
 
-    const [result, fields] = await connection.query(sql, value)
-    connection.release()
-    return result
+    if (filter == "ALL") {
+        const connection = await getConnection()
 
+        const sql = 'SELECT Users.*, Clubs.club_name as club FROM `Users` LEFT JOIN `Clubs` ON `Users`.`club_id` = `Clubs`.`cid` WHERE `name` LIKE ? ORDER BY `name` ASC LIMIT 20'
+        const value = [`%${identifier}%`]
+
+        const [result, fields] = await connection.query(sql, value)
+        connection.release()
+        return result
+    } else {
+        const connection = await getConnection()
+
+        const sql = 'SELECT Users.*, Clubs.club_name as club FROM `Users` LEFT JOIN `Clubs` ON `Users`.`club_id` = `Clubs`.`cid` WHERE `Users`.`name` LIKE ? AND `Users`.`role` = ? ORDER BY `name` ASC LIMIT 20'
+        const value = [`%${identifier}%`, filter]
+
+        const [result, fields] = await connection.query(sql, value)
+        connection.release()
+        return result
+    }
 }
 
 const updateUserImageService = async (image, phone) => {
