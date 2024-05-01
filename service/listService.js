@@ -7,7 +7,7 @@ const getListService = async (identifier, limit, offset) => {
     if (identifier == "PID") {
         const connection = await getConnection()
 
-        const sql = 'SELECT COUNT(*) AS count FROM `List` WHERE `identifier` = ?; SELECT * FROM `List` WHERE `identifier` = ? ORDER BY `timestamp` DESC LIMIT ? OFFSET ?;'
+        const sql = 'SELECT COUNT(*) AS count FROM `List` WHERE `identifier` = ?; SELECT * FROM `List` WHERE `identifier` = ? ORDER BY `id` DESC LIMIT ? OFFSET ?;'
         const value = [identifier, identifier, limit, offset]
 
         const [result, fields] = await connection.query(sql, value)
