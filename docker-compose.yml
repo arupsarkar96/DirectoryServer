@@ -11,7 +11,7 @@ services:
     ports:
       - 8080:8080
     environment:
-      MYSQL: mysql://directory:dXnk.17DSw4TvpGx@192.168.1.101/directory
+      MYSQL: mysql://directory:Directory123@192.168.1.101/directory
       LOKI: http://192.168.1.101:3100
       S3_ENDPOINT: 192.168.1.100
       S3_ACCESS_KEY: cFVms9i7n1weyt60gkZc
