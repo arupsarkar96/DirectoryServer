@@ -1,6 +1,7 @@
 const express = require('express')
 const bodyParser = require('body-parser')
 const client = require('prom-client')
+const cors = require('cors')
 const app = express()
 const homeRoute = require('./routes/homeRoute')
 const loginRoute = require('./routes/loginRoute')
@@ -11,13 +12,15 @@ const pageRoute = require('./routes/pageRoute')
 const searchRoute = require('./routes/searchRoute')
 const zoneRoute = require('./routes/zoneRoute')
 const fileRoute = require('./routes/fileRoute')
+const adminRoute = require('./routes/adminRoute')
 const config = require('./config/config')
 const { LogRequest } = require('./middleware/log')
 
+
+app.use(cors())
 app.use(LogRequest)
-
-
 app.use(bodyParser.urlencoded({ extended: false }))
+app.use(express.static("public"))
 app.use('/login', loginRoute)
 app.use('/home', homeRoute)
 app.use('/user', userRoute)
@@ -27,6 +30,7 @@ app.use('/page', pageRoute)
 app.use('/search', searchRoute)
 app.use('/zone', zoneRoute)
 app.use('/file', fileRoute)
+app.use('/admin', adminRoute)
 
 app.get('/metrics', async (req, res) => {
     res.setHeader('Content-Type', client.register.contentType)

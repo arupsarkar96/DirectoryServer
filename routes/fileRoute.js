@@ -1,3 +1,8 @@
+const express = require('express')
+const { UserAuthorize } = require('../middleware/auth')
+const { updateUserImageService } = require('../service/userService');
+const config = require('../config/config');
+const app = express.Router()
 const multer = require('multer')
 const Minio = require('minio')
 const { v4: uuid } = require('uuid')
@@ -5,11 +10,11 @@ const NodeCache = require('node-cache')
 const cache = new NodeCache({ stdTTL: 60 * 5 }); // Cache TTL: 5 minutes
 
 const minioClient = new Minio.Client({
-    endPoint: process.env.S3_ENDPOINT,
+    endPoint: config.S3_ENDPOINT,
     port: 9000,
     useSSL: false,
-    accessKey: process.env.S3_ACCESS_KEY,
-    secretKey: process.env.S3_SECRET_KEY,
+    accessKey: config.S3_ACCESS_KEY,
+    secretKey: config.S3_SECRET_KEY,
 })
 
 
@@ -17,10 +22,7 @@ const storage = multer.memoryStorage({})
 const upload = multer({ storage: storage })
 
 
-const express = require('express')
-const { UserAuthorize } = require('../middleware/auth')
-const { updateUserImageService } = require('../service/userService')
-const app = express.Router()
+
 
 
 
