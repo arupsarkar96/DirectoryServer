@@ -14,8 +14,15 @@ const getUserByPhone = async (phone) => {
 const getUserListService = async (identifier, limit, offset) => {
     const connection = await getConnection()
 
-    if (identifier == 'MEMBER' || identifier == 'PST' || identifier == 'CABINET' || identifier == 'COMMITTEE') {
+    if (identifier == 'MEMBER' || identifier == 'PST' || identifier == 'COMMITTEE') {
         const sql = 'SELECT COUNT(*) AS count FROM `Users` WHERE `role` = ?; SELECT `Users`.*, `Clubs`.`club_name` AS club FROM `Users` LEFT JOIN `Clubs` ON `Users`.`club_id` = `Clubs`.`cid` WHERE `Users`.`role` = ? ORDER BY `Users`.`uid` ASC LIMIT ? OFFSET ?;'
+        const value = [identifier, identifier, limit, offset]
+
+        const [result, fields] = await connection.query(sql, value)
+        connection.release()
+        return result
+    } else if (identifier == 'CABINET') {
+        const sql = 'SELECT COUNT(*) AS count FROM `Users` WHERE `role` = ?; SELECT `Users`.*, `Clubs`.`club_name` AS club FROM `Users` LEFT JOIN `Clubs` ON `Users`.`club_id` = `Clubs`.`cid` WHERE `Users`.`role` = ? ORDER BY `Users`.`cabinet_order` ASC LIMIT ? OFFSET ?;'
         const value = [identifier, identifier, limit, offset]
 
         const [result, fields] = await connection.query(sql, value)
