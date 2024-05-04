@@ -20,6 +20,7 @@
     "mysql2": "^3.9.7",
     "node-cache": "^5.1.2",
     "prom-client": "^15.1.2",
+    "uuid": "^9.0.1",
     "winston": "^3.13.0",
     "winston-loki": "^6.1.2"
   },
