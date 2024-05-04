@@ -17,6 +17,7 @@ const minioClient = new Minio.Client({
     secretKey: config.S3_SECRET_KEY,
 })
 
+const bucket = config.S3_BUCKET
 
 const storage = multer.memoryStorage({})
 const upload = multer({ storage: storage })
@@ -40,14 +41,14 @@ app.get('/:key', async (req, res) => {
         return res.set('Content-Type', 'image/jpeg').send(cachedImage)
     }
 
-    const stat = await minioClient.statObject('avatars', id)
+    const stat = await minioClient.statObject(bucket, id)
     if (stat.err) {
         return res.sendStatus(404)
     }
 
 
     // Stream the object data to the response
-    const dataStream = await minioClient.getObject('avatars', id)
+    const dataStream = await minioClient.getObject(bucket, id)
     const chunks = []
 
     dataStream.on('data', (chunk) => {
@@ -82,7 +83,7 @@ app.post('/', UserAuthorize, upload.single("file"), async (req, res) => {
     }
     const fileName = uuid() + ".jpeg"
 
-    minioClient.putObject('avatars', fileName, file.buffer, (err, etag) => {
+    minioClient.putObject(bucket, fileName, file.buffer, (err, etag) => {
         if (err) {
             console.error(err)
             // Release from Memory Storage
