@@ -78,7 +78,7 @@ const getUserSearchService = async (identifier, filter) => {
 
 const updateUserImageService = async (image, phone) => {
     const connection = await getConnection()
-    const sql = 'UPDATE Users SET image = ? WHERE phone = ?'
+    const sql = 'UPDATE Users SET image = ? WHERE mobile = ?'
     const value = [image, phone]
     const [result, fields] = await connection.query(sql, value)
     connection.release()
