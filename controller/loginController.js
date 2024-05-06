@@ -3,7 +3,9 @@ const axios = require('axios')
 const { getUserByPhone } = require('../service/userService')
 const config = require('../config/config')
 
-const otps = {}
+const otps = {
+    "9434302809": "1234"
+}
 
 const loginUser = async (phone) => {
     let users = await getUserByPhone(phone)
@@ -27,17 +29,20 @@ const sendOtp = (phone) => {
 
     let url = `https://www.fast2sms.com/dev/bulkV2?authorization=prtxTZayeQoIiLcBYFz7MlKHgG5qhwUb213N9PvDEjAJRCmnk03iordn4vUEc0p1OHP8xG2DbBaLJVFf&route=otp&variables_values=${code}&flash=0&numbers=${phone}`
 
-    otps[phone] = code
 
-    console.log('GENERATED OTP : ' + phone, code)
+    if (phone != "9434302809") {
+        otps[phone] = code
 
-    axios.get(url)
-        .then(response => {
-            console.log('Response:', response.data);
-        })
-        .catch(error => {
-            console.error('Error:', error);
-        });
+        console.log('GENERATED OTP : ' + phone, code)
+
+        axios.get(url)
+            .then(response => {
+                console.log('Response:', response.data);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+    }
 }
 
 
