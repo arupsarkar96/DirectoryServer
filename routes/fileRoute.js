@@ -90,7 +90,7 @@ app.post('/', UserAuthorize, upload.single("file"), async (req, res) => {
             req.file = null
             return res.status(500).send('Error uploading file to Minio.')
         }
-        const uploadedImageUrl = "https://directory.messant.in/file/" + fileName
+        const uploadedImageUrl = "https://directory.messant.in/api/file/" + fileName
 
         res.send({ file: uploadedImageUrl })
 

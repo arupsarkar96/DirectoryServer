@@ -29,7 +29,7 @@ app.use('/api/club', clubRoute)
 app.use('/api/page', pageRoute)
 app.use('/api/search', searchRoute)
 app.use('/api/zone', zoneRoute)
-app.use('/file', fileRoute)
+app.use('/api/file', fileRoute)
 app.use('/api/admin', adminRoute)
 
 app.get('/metrics', async (req, res) => {
