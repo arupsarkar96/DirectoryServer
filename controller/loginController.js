@@ -4,7 +4,7 @@ const { getUserByPhone } = require('../service/userService')
 const config = require('../config/config')
 
 const otps = {
-    "9434302809": "1234"
+    "9434302809": "9434302809"
 }
 
 const loginUser = async (phone) => {
