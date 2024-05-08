@@ -1,6 +1,7 @@
 #root {
     max-width: 600px !important;
     margin: 0 auto;
+    margin-top: 56px;
 }
 
 #imgUser {
