@@ -1,0 +1,28 @@
+#root {
+    max-width: 600px !important;
+    margin: 0 auto;
+}
+
+#imgUser {
+    width: 48px;
+    height: 48px;
+    border-radius: 8px;
+}
+
+#textUserName {
+    font-size: 18px;
+}
+
+#pager {
+    height: 256px;
+    margin-bottom: 8px;
+    margin-top: 8px;
+}
+
+.slideImage {
+    width: auto;
+    height: 256px;
+    max-height: 256px;
+    margin: auto;
+    display: block;
+}
