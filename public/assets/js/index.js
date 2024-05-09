@@ -212,7 +212,7 @@ const showClubs = (zid) => {
                 $("#root").append(`<div class="card mb-2">
   <div class="card-body">
     <h5 class="card-title">${club.club_name}</h5>
-    <button onclick="loadUser(${club.cid})" class="btn btn-primary">View Users</button>
+    <button onclick="loadUser(${club.cid})" class="btn btn-primary">View Members</button>
   </div>
 </div>`)
             })
