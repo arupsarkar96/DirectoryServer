@@ -74,7 +74,70 @@ $(document).ready(function () {
 
         })
     })
+
+    $("#searchButtonInit").on('click', () => {
+        $("#searchModel").modal('show');
+    })
+
+    $('#inputSearchBar').keyup(function () {
+        var searchString = $("#inputSearchBar").val().trim()
+        console.log(searchString)
+
+        if (searchString.length == 0) {
+            $("#searchResult").html("")
+            return
+        }
+
+        $.ajax({
+            url: API + "/search/ALL/" + searchString,
+            method: "GET",
+            beforeSend: (request) => {
+                request.setRequestHeader("authorization", AUTH_TOKEN);
+                $("#searchResult").html(`<div class="d-flex justify-content-center"><div class="spinner-border" role="status"><span class="visually-hidden">Loading...</span></div></div>`)
+            },
+            success: (data) => {
+                console.log(data)
+                $("#searchResult").html("")
+                data.forEach(listItem => {
+                    var IMAGE = "https://upload.wikimedia.org/wikipedia/en/thumb/5/5b/Lions_Clubs_International_logo.svg/1200px-Lions_Clubs_International_logo.svg.png"
+                    if (listItem.image != null) {
+                        IMAGE = listItem.image
+                    }
+
+                    var PDG_LABEL = ""
+
+                    if (listItem.role == "PDG") {
+                        PDG_LABEL = `<p class="card-text m-0">YEAR: <small class="text-body-secondary">${listItem.year_start} - ${listItem.year_end}</small></p>`
+                    }
+
+
+                    $("#searchResult").append(`<div class="card mb-3">
+  <div class="row g-0">
+    <div class="col-2">
+      <img src="${IMAGE}" class="img-fluid rounded-start" alt="${listItem.name}">
+    </div>
+    <div class="col-10">
+      <div class="card-body">
+        <h5 class="card-title">${listItem.name}</h5>
+        <p class="card-text m-0">${listItem.role} | ${listItem.designation}</p>
+        <p class="card-text m-0">${listItem.club}</p>
+        ${PDG_LABEL}
+        <p class="card-text m-0">ID: <small class="text-body-secondary">${listItem.uid}</small></p>
+        <p class="card-text m-0">IM NO: <small class="text-body-secondary">${listItem.im}</small></p>
+        <p class="card-text m-0">Phone no: <small class="text-body-secondary">${listItem.mobile}</small></p>
+        <p class="card-text m-0">Email Id: <small class="text-body-secondary">${listItem.email}</small></p>
+      </div>
+    </div>
+  </div>
+</div>`)
+                })
+            }
+
+        })
+    });
 });
+
+
 
 
 function loadHome() {
