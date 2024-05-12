@@ -11,7 +11,6 @@ const cache = new NodeCache({ stdTTL: 60 * 5 }); // Cache TTL: 5 minutes
 
 const minioClient = new Minio.Client({
     endPoint: config.S3_ENDPOINT,
-    port: 9000,
     useSSL: true,
     accessKey: config.S3_ACCESS_KEY,
     secretKey: config.S3_SECRET_KEY,
