@@ -18,7 +18,7 @@ const { LogRequest } = require('./middleware/log')
 
 
 app.use(cors())
-app.use(LogRequest)
+// app.use(LogRequest)
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(express.static("public"))
 app.use('/api/login', loginRoute)
@@ -32,11 +32,11 @@ app.use('/api/zone', zoneRoute)
 app.use('/api/file', fileRoute)
 app.use('/api/admin', adminRoute)
 
-app.get('/metrics', async (req, res) => {
-    res.setHeader('Content-Type', client.register.contentType)
-    const metrics = await client.register.metrics()
-    res.send(metrics)
-})
+// app.get('/metrics', async (req, res) => {
+//     res.setHeader('Content-Type', client.register.contentType)
+//     const metrics = await client.register.metrics()
+//     res.send(metrics)
+// })
 app.listen(config.port, '0.0.0.0', () => {
     console.log(`🚀 HTTP ${config.port}`)
 })

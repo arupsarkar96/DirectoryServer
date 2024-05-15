@@ -2,7 +2,6 @@ const API = "https://directory.messant.in/api"
 var AUTH_TOKEN = ""
 
 $(document).ready(function () {
-
     const token = getCookie('token');
     if (token) {
         console.log('Token found:', token);
