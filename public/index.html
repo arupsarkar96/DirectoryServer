@@ -23,7 +23,7 @@
 
     <nav class="navbar navbar-expand-lg bg-danger fixed-top">
         <div class="container-fluid">
-            <a class="navbar-brand" data-bs-toggle="offcanvas" href="#sidePanel" role="button"
+            <a class="navbar-brand text-white" data-bs-toggle="offcanvas" href="#sidePanel" role="button"
                 aria-controls="sidePanel">
                 <i class="bi bi-list"></i>
                 Directory</a>
@@ -83,17 +83,20 @@
 
 
     <div class="offcanvas offcanvas-start" tabindex="-1" id="sidePanel" aria-labelledby="offcanvasExampleLabel">
-        <div class="offcanvas-header">
-            <h5 class="offcanvas-title" id="offcanvasExampleLabel">Directory 322B1 | 2024 - 25</h5>
+        <div class="offcanvas-header bg-danger">
+            <h5 class="offcanvas-title text-white" id="offcanvasExampleLabel">Directory 322B1 | 2024 - 25</h5>
             <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
+        <div class="bg-danger p-2">
+            <img id="imgUser"
+                src="https://upload.wikimedia.org/wikipedia/en/thumb/5/5b/Lions_Clubs_International_logo.svg/1200px-Lions_Clubs_International_logo.svg.png"
+                width="56" height="56" />
+            <h4 id="textUserName" class="mt-2 text-white">User name</h4>
+            <p class="text-white" id="textUserDesignation"></p>
+        </div>
+
         <div class="offcanvas-body">
-            <div>
-                <img id="imgUser"
-                    src="https://upload.wikimedia.org/wikipedia/en/thumb/5/5b/Lions_Clubs_International_logo.svg/1200px-Lions_Clubs_International_logo.svg.png"
-                    width="56" height="56" />
-                <label id="textUserName">User name</label>
-            </div>
+
             <div class="mt-3">
                 <ul class="list-group" id="listLeft">
 

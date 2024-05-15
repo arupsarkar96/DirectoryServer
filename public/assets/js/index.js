@@ -2,7 +2,7 @@ const API = "https://directory.messant.in/api"
 var AUTH_TOKEN = ""
 
 $(document).ready(function () {
-    // setCookie('token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiOTgzMDE1NzU1MCIsImlhdCI6MTcxNDg2MDg3MSwiZXhwIjoxNzQ2NDE4NDcxfQ.EBpTk6hoKWuoz9c5dqWokrAKt9WSY26Ul0Wje2q6hEY', 30)
+
     const token = getCookie('token');
     if (token) {
         console.log('Token found:', token);
@@ -150,6 +150,7 @@ function loadHome() {
         success: (data) => {
             console.log(data)
             $("#textUserName").text(data.user.name)
+            $("#textUserDesignation").text(`${data.user.role} | ${data.user.club}`)
             $("#navUserName").text(data.user.name.split(" ")[0])
             if (data.user.image != null) {
                 $("#imgUser").attr('src', data.user.image)
@@ -159,7 +160,21 @@ function loadHome() {
 
             $("#listLeft").html("")
             data.menus.forEach(menu => {
-                $("#listLeft").append(`<li data-bs-dismiss="offcanvas" class="list-group-item leftMenuItem" type="${menu.type}" identifier = "${menu.identifier}">${menu.label}</li>`)
+                var icon = ""
+
+                if (menu.type == "HOME") {
+                    icon = `<i class="bi bi-house-fill"></i>`
+                } else if (menu.type == "ZONE") {
+                    icon = `<i class="bi bi-buildings-fill"></i>`
+                } else if (menu.type == "USER") {
+                    icon = `<i class="bi bi-people-fill"></i>`
+                } else if (menu.type == "PAGE") {
+                    icon = `<i class="bi bi-browser-safari"></i>`
+                } else {
+                    icon = `<i class="bi bi-list-ul"></i>`
+                }
+
+                $("#listLeft").append(`<li data-bs-dismiss="offcanvas" class="list-group-item leftMenuItem border-0" type="${menu.type}" identifier = "${menu.identifier}">${icon} ${menu.label}</li>`)
             });
 
             buildHome(data.banners, data.messages)
